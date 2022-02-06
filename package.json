@@ -1,0 +1,25 @@
+{
+  "name": "cloud-sync",
+  "description": "A Node.js service that will auto-sync the contents of a removable drive to the cloud.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MkFoster/cloud-sync.git"
+  },
+  "author": "Mark Foster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MkFoster/cloud-sync/issues"
+  },
+  "homepage": "https://github.com/MkFoster/cloud-sync#readme",
+  "dependencies": {
+    "aws-sdk": "2.1069.0",
+    "cvlc": "0.1.0",
+    "node-usb-detection": "1.0.2",
+    "s3-sync-client": "3.0.0"
+  }
+}
