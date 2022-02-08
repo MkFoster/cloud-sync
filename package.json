@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/MkFoster/cloud-sync#readme",
   "dependencies": {
-    "aws-sdk": "2.1069.0",
+    "@aws-sdk/client-s3": "^3.49.0",
     "cvlc": "0.1.0",
-    "node-usb-detection": "1.0.2",
+    "dotenv": "^16.0.0",
     "s3-sync-client": "3.0.0"
   }
 }
