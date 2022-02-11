@@ -3,6 +3,7 @@ const fs = require('fs');
 const { S3Client, AbortMultipartUploadCommand } = require("@aws-sdk/client-s3");
 const S3SyncClient = require('s3-sync-client');
 const Cvlc = require('cvlc');
+const { exec } = require('child_process');
 
 const removableStoragePath = '/media/pi';
 
@@ -15,20 +16,28 @@ fs.watch(removableStoragePath, async (eventType, filename) => {
 			const fullDevicePath = removableStoragePath + '/' + files[0];
 			const stat = await fs.promises.lstat(fullDevicePath);
 			if (stat.isDirectory()) {
-				player.play('./assets/sd-card-detected.mp3', ()=>{
-					
-				});
+				exec('python neopix-color-cycle.py');
+				console.log('got here');
+				//const { stdout, stderr } = await exec('cvlc ./assets/sd-card-detected.mp3');
+				//console.log('stdout:', stdout);
+				//console.error('stderr:', stderr);
+				player.play('./assets/sd-card-detected.mp3', ()=>{});
 				await sleep(2500);
 				const removableStorageFiles = await fs.promises.readdir(fullDevicePath);
 				if (removableStorageFiles.length > 0) {
 					player.play('./assets/file-upload.mp3', ()=>{});
 					await sleep(3500);
 					await syncLocalDirToS3(fullDevicePath);
+					console.log('Sync Complete!');
+					exec('python neopix-green.py');
 					player.play('./assets/upload-complete.mp3', ()=>{});
 					await sleep(5500);
 				}
 				console.log(removableStorageFiles);
 			}
+		} else {
+			console.log('Micro SD Card Removed');
+			exec('python neopix-off.py');
 		}
 	} catch (err) {
 		console.error(err);
